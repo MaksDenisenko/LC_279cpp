@@ -4,12 +4,16 @@
 // целого числа на себя.Например, 1, 4, 9, и 16 являются идеальными квадратами, в то время как 3 и 11 таковыми не являются.
 
 #include <iostream>
-
+static int count = 0;
 int numSquares(int n) {
 
     int num = sqrt(n);
-    numSquares(n % (i * i));
+    if ((n - (num * num)) != 0 || (n - (num * num)) > 0)
+       return numSquares(n - (num * num)) + 1;
+    else
+        return 1;
 }
+
 
 int main()
 {
@@ -17,3 +21,8 @@ int main()
     std::cout << numSquares(N);
 }
 
+/*
+ 13 = 9 + 4;
+ 13 = 1 + 4 + 4 + 4;
+ 13 = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1;
+*/

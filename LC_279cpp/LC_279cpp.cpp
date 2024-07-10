@@ -4,20 +4,28 @@
 // целого числа на себя.Например, 1, 4, 9, и 16 являются идеальными квадратами, в то время как 3 и 11 таковыми не являются.
 
 #include <iostream>
-static int count = 0;
-int numSquares(int n) {
+int find(int n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    if (n < 0) return INT_MAX;
+    int minSquares = INT_MAX;
+    for (int i = 1; i * i <= n; ++i) {
+        int result = find(n - (i * i));
+        if (result != INT_MAX) {
+            minSquares = std::min(minSquares, result + 1);
+        }
+    }
+    return minSquares;
+}
 
-    int num = sqrt(n);
-    if ((n - (num * num)) != 0 || (n - (num * num)) > 0)
-       return numSquares(n - (num * num)) + 1;
-    else
-        return 1;
+int numSquares(int n) {
+    return find(n);
 }
 
 
 int main()
 {
-    int N = 13;
+    int N = 18;
     std::cout << numSquares(N);
 }
 
